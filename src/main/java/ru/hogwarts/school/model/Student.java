@@ -7,7 +7,7 @@ public class Student {
     private String name;
     private int age;
 
-    public Student(Long id, String name, int age) {
+    public Student(Long id, String name, Integer age) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -29,7 +29,7 @@ public class Student {
         this.name = name;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
@@ -54,7 +54,7 @@ public class Student {
                 '}';
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
 
 
