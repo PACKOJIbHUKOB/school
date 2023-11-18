@@ -1,11 +1,10 @@
 package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
+import ru.hogwarts.school.exception.StudentExceptionNotFound;
 import ru.hogwarts.school.model.Student;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
@@ -22,25 +21,28 @@ public class StudentService {
     }
 
     public Student findStudent(Long id) {
+        if (!students.containsKey(id)){
+            throw new StudentExceptionNotFound("студент c таким id "+id+" не найден");
+        }
         return students.get(id);
     }
 
-    public Collection<Student> getAllStudents() {
-        return students.values();
+    public List<Student> getAllStudents() {
+        return new ArrayList<> (students.values());
     }
 
-    public Student editStudent(Student student) {
-        if (students.containsKey(student.getId())) {
-            students.put(student.getId(), student);
-            return student;
-        }
-        return null;
+    public Student editStudent(long id,Student student) {
+        Student existanceStudent = findStudent(id);
+        existanceStudent.setName(student.getName());
+        existanceStudent.setAge(student.getAge());
+        return existanceStudent;
+
     }
     public Student removeStudent(Long id) {
         return students.remove(id);
     }
 
-    public Collection<Student> findStudentByAge(int age) {
+    public List<Student> findStudentByAge(int age) {
         return getAllStudents()
                 .stream()
                 .filter (e->e.getAge() == age)

@@ -6,6 +6,7 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.service.FacultyService;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "faculty")
@@ -16,19 +17,15 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
     @GetMapping ("{id}")
-    public ResponseEntity<Faculty> findFaculty (@PathVariable long id){
-        Faculty faculty = facultyService.findFaculty(id);
-        if (faculty == null) {
-           return ResponseEntity.notFound().build();
-
-        }
-        return ResponseEntity.ok(faculty);
+    public Faculty findFaculty (@PathVariable long id) {
+        return facultyService.findFaculty(id);
     }
+
     @GetMapping
     public Collection<Faculty> getAll(){
         return facultyService.getAllFaculties();
     }
-    @GetMapping("/findColor")
+    @GetMapping(params = "color")
     public Collection<Faculty> findFacultyByColor(@RequestParam String color){
         return facultyService.findFacultyByColor(color);
     }
@@ -36,13 +33,10 @@ public class FacultyController {
     public Faculty creatFaculty (@RequestBody Faculty faculty){
         return facultyService.creatNewFaculty(faculty);
     }
-    @PutMapping
-    public ResponseEntity<Faculty> editFaculty(@RequestBody Faculty faculty){
-        Faculty foundFaculty = facultyService.editFaculty(faculty);
-        if (faculty == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(faculty);
+    @PutMapping("{id}")
+    public Faculty editFaculty(@PathVariable long id,@RequestBody Faculty faculty) {
+        return facultyService.editFaculty(id,faculty);
+
     }
     @DeleteMapping("{id}")
     public Faculty removeFaculty(@PathVariable long id){
