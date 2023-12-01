@@ -1,37 +1,51 @@
 package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
+import ru.hogwarts.school.exception.StudentExceptionNotFound;
 import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.repositiries.StudentRepositories;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import static java.util.stream.Collectors.toList;
+
 @Service
 public class StudentService {
-    private final Map<Long, Student> students = new HashMap<>();
-     private long lastId;
+  private final StudentRepositories studentRepositories;
+
+    public StudentService(StudentRepositories studentRepositories) {
+        this.studentRepositories = studentRepositories;
+    }
 
     public Student creatNewStudent(Student student) {
-        student.setId(++lastId);
-        students.put(lastId, student);
-        return student;
+        return studentRepositories.save(student);
     }
 
     public Student findStudent(Long id) {
-        return students.get(id);
+        return studentRepositories.findById(id).get();
     }
 
-    public Collection<Student> getAllStudents() {
-        return students.values();
+    public List<Student> getAllStudents() {
+        return studentRepositories.findAll();
     }
 
-    public Student editStudent(Student student) {
-        students.put(student.getId(), student);
-        return student;
-    }
+    public Student editStudent(long id,Student student) {
+        Student existanceStudent = findStudent(id);
+        existanceStudent.setName(student.getName());
+        existanceStudent.setAge(student.getAge());
+        studentRepositories.save(existanceStudent);
+        return existanceStudent;
 
+    }
     public Student removeStudent(Long id) {
-        students.remove(id);
-        return students.get(id);
+        Student existanceStudent = findStudent(id);
+        studentRepositories.deleteById(id);
+        return existanceStudent;
+    }
+
+    public List<Student> findStudentByAge(int age) {
+        return getAllStudents()
+                .stream()
+                .filter (e->e.getAge() == age)
+                .collect(toList());
     }
 }
