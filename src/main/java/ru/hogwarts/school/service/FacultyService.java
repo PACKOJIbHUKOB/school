@@ -48,4 +48,10 @@ public class FacultyService {
                 .filter (e->e.getColor().equals(color))
                 .collect(toList());
     }
+    public Collection<Faculty> findAllByNameOrColorIgnoreCase(String param){
+        Set<Faculty> result = new HashSet<>();
+        result.addAll(facultyRepositories.findByColorIgnoreCase(param));
+        result.addAll(facultyRepositories.findByNameIgnoreCase(param));
+        return result;
+    }
 }
