@@ -1,45 +1,44 @@
 package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
-import ru.hogwarts.school.exception.StudentExceptionNotFound;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
-import ru.hogwarts.school.repositiries.StudentRepositories;
+import ru.hogwarts.school.repositiries.StudentRepository;
 
 import java.util.*;
 import static java.util.stream.Collectors.toList;
 
 @Service
 public class StudentService {
-  private final StudentRepositories studentRepositories;
+  private final StudentRepository studentRepository;
 
-    public StudentService(StudentRepositories studentRepositories) {
-        this.studentRepositories = studentRepositories;
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
     }
 
-    public Student creatNewStudent(Student student) {
-        return studentRepositories.save(student);
+    public Student createNewStudent(Student student) {
+        return studentRepository.save(student);
     }
 
     public Student findStudent(Long id) {
-        return studentRepositories.findById(id).get();
+        return studentRepository.findById(id).get();
     }
 
     public List<Student> getAllStudents() {
-        return studentRepositories.findAll();
+        return studentRepository.findAll();
     }
 
     public Student editStudent(long id,Student student) {
         Student existanceStudent = findStudent(id);
         existanceStudent.setName(student.getName());
         existanceStudent.setAge(student.getAge());
-        studentRepositories.save(existanceStudent);
+        studentRepository.save(existanceStudent);
         return existanceStudent;
 
     }
     public Student removeStudent(Long id) {
         Student existanceStudent = findStudent(id);
-        studentRepositories.deleteById(id);
+        studentRepository.deleteById(id);
         return existanceStudent;
     }
 
@@ -50,13 +49,13 @@ public class StudentService {
                 .collect(toList());
     }
     public Collection<Student> findAllByAgeBetween(Integer min, Integer max){
-        return studentRepositories.findAllByAgeBetween(min, max);
+        return studentRepository.findAllByAgeBetween(min, max);
     }
     public Faculty getFacultyByStudentId(Long id) {
-        return studentRepositories.findById(id).get().getFaculty();
+        return studentRepository.findById(id).get().getFaculty();
     }
     public List<Student> getByFacultyId(Long facultyId) {
-        return studentRepositories.findByFacultyId(facultyId);
+        return studentRepository.findByFacultyId(facultyId);
     }
 
 }

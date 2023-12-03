@@ -3,7 +3,7 @@ package ru.hogwarts.school.service;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
-import ru.hogwarts.school.repositiries.FacultyRepositories;
+import ru.hogwarts.school.repositiries.FacultyRepository;
 
 import java.util.*;
 
@@ -11,37 +11,37 @@ import static java.util.stream.Collectors.toList;
 
 @Service
 public class FacultyService {
-    private final FacultyRepositories facultyRepositories;
+    private final FacultyRepository facultyRepository;
     private final StudentService studentService;
 
-    public FacultyService(FacultyRepositories facultyRepositories, StudentService studentService) {
-        this.facultyRepositories = facultyRepositories;
+    public FacultyService(FacultyRepository facultyRepository, StudentService studentService) {
+        this.facultyRepository = facultyRepository;
         this.studentService = studentService;
     }
 
 
-    public Faculty creatNewFaculty(Faculty faculty) {
-        return facultyRepositories.save(faculty) ;
+    public Faculty createNewFaculty(Faculty faculty) {
+        return facultyRepository.save(faculty) ;
     }
 
     public Faculty findFaculty(Long id) {
-        return facultyRepositories.findById(id).get();
+        return facultyRepository.findById(id).get();
     }
 
     public List<Faculty> getAllFaculties() {
-        return facultyRepositories.findAll();
+        return facultyRepository.findAll();
     }
 
     public Faculty editFaculty(long id,Faculty faculty) {
         Faculty exsistfaculty =findFaculty(id);
         exsistfaculty.setName(faculty.getName());
         exsistfaculty.setColor(faculty.getColor());
-        return facultyRepositories.save(exsistfaculty);
+        return facultyRepository.save(exsistfaculty);
     }
 
     public Faculty removeFaculty(Long id) {
         Faculty exsistfaculty =findFaculty(id);
-        facultyRepositories.deleteById(id);
+        facultyRepository.deleteById(id);
         return exsistfaculty;
     }
     public List<Faculty> findFacultyByColor(String color) {
@@ -52,8 +52,8 @@ public class FacultyService {
     }
     public Collection<Faculty> findAllByNameOrColorIgnoreCase(String param){
         Set<Faculty> result = new HashSet<>();
-        result.addAll(facultyRepositories.findByColorIgnoreCase(param));
-        result.addAll(facultyRepositories.findByNameIgnoreCase(param));
+        result.addAll(facultyRepository.findByColorIgnoreCase(param));
+        result.addAll(facultyRepository.findByNameIgnoreCase(param));
         return result;
     }
     public List<Student> getStudentsByFacultyId(Long id) {

@@ -1,6 +1,5 @@
 package ru.hogwarts.school.controller;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
@@ -35,7 +34,7 @@ public class StudentController {
     }
     @PostMapping
     public Student creatStudent (@RequestBody Student student) {
-        return studentService.creatNewStudent(student);
+        return studentService.createNewStudent(student);
     }
     @PutMapping("{id}")
     public Student editStudent (@PathVariable long id,@RequestBody Student student){

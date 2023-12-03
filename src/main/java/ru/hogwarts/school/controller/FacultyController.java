@@ -6,7 +6,6 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.FacultyService;
 
-import java.util.Collection;
 import java.util.List;
 
 
@@ -36,7 +35,7 @@ public class FacultyController {
 
     @PostMapping
     public Faculty creatFaculty (@RequestBody Faculty faculty){
-        return facultyService.creatNewFaculty(faculty);
+        return facultyService.createNewFaculty(faculty);
     }
     @PutMapping("{id}")
     public Faculty editFaculty(@PathVariable long id,@RequestBody Faculty faculty) {
