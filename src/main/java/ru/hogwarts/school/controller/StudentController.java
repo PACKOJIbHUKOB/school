@@ -1,6 +1,7 @@
 package ru.hogwarts.school.controller;
 
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.school.dto.StudentDto;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
@@ -33,8 +34,8 @@ public class StudentController {
         return studentService.getAllStudents();
     }
     @PostMapping
-    public Student creatStudent (@RequestBody Student student) {
-        return studentService.createNewStudent(student);
+    public Student creatStudent (@RequestBody StudentDto student) {
+        return studentService.createNewStudent(student.getName(), student.getAge());
     }
     @PutMapping("{id}")
     public Student editStudent (@PathVariable long id,@RequestBody Student student){

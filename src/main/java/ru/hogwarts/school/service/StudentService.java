@@ -1,6 +1,7 @@
 package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
+import ru.hogwarts.school.dto.StudentDto;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositiries.StudentRepository;
@@ -16,10 +17,11 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public Student createNewStudent(Student student) {
-        return studentRepository.save(student);
+    public Student createNewStudent(String name, Integer age) {
+        Student newStudent = new Student(name, age);
+        newStudent = studentRepository.save(newStudent);
+        return newStudent;
     }
-
     public Student findStudent(Long id) {
         return studentRepository.findById(id).get();
     }

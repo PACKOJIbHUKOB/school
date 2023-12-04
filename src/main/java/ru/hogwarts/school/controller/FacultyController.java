@@ -2,6 +2,7 @@ package ru.hogwarts.school.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.school.dto.FacultyDto;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.FacultyService;
@@ -34,8 +35,8 @@ public class FacultyController {
     }
 
     @PostMapping
-    public Faculty creatFaculty (@RequestBody Faculty faculty){
-        return facultyService.createNewFaculty(faculty);
+    public Faculty creatFaculty (@RequestBody FacultyDto faculty){
+       return facultyService.createNewFaculty(faculty.getName(), faculty.getColor());
     }
     @PutMapping("{id}")
     public Faculty editFaculty(@PathVariable long id,@RequestBody Faculty faculty) {

@@ -1,6 +1,7 @@
 package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
+import ru.hogwarts.school.dto.FacultyDto;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositiries.FacultyRepository;
@@ -20,8 +21,10 @@ public class FacultyService {
     }
 
 
-    public Faculty createNewFaculty(Faculty faculty) {
-        return facultyRepository.save(faculty) ;
+    public Faculty createNewFaculty(String name, String color) {
+        Faculty newFaculty = new Faculty(name, color);
+        newFaculty = facultyRepository.save(newFaculty);
+        return newFaculty;
     }
 
     public Faculty findFaculty(Long id) {
