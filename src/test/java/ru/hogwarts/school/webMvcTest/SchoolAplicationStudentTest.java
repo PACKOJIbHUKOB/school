@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.hogwarts.school.controller.StudentController;
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositiries.AvatarRepository;
 import ru.hogwarts.school.repositiries.FacultyRepository;
@@ -117,10 +118,10 @@ class SchoolAplicationStudentTest {
         final Integer age1 = 2;
         final Long id = 1L;
 
+
         JSONObject objectStudent2 = new JSONObject();
         objectStudent2.put("name", name1);
         objectStudent2.put("age", age1);
-
         Student student = new Student();
         student.setId(id);
         student.setName(name);
@@ -143,8 +144,6 @@ class SchoolAplicationStudentTest {
     public void StudentDeleteTest() throws Exception {
         final String name = "test1";
         final Integer age = 1;
-        final String name1 = "test2";
-        final Integer age1 = 2;
         final Long id = 1L;
 
         Student student = new Student();

@@ -30,7 +30,7 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public Student editStudent(long id,Student student) {
+    public Student editStudent(long id, StudentDto student) {
         Student existanceStudent = findStudent(id);
         existanceStudent.setName(student.getName());
         existanceStudent.setAge(student.getAge());

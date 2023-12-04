@@ -38,7 +38,7 @@ public class StudentController {
         return studentService.createNewStudent(student.getName(), student.getAge());
     }
     @PutMapping("{id}")
-    public Student editStudent (@PathVariable long id,@RequestBody Student student){
+    public Student editStudent (@PathVariable long id,@RequestBody StudentDto student){
         return studentService.editStudent(id, student);
     }
 

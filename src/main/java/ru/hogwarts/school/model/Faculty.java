@@ -26,14 +26,6 @@ public class Faculty {
         return id;
     }
 
-    public List<Student> getStudent() {
-        return student;
-    }
-
-    public void setStudent(List<Student> student) {
-        this.student = student;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
