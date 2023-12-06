@@ -22,8 +22,8 @@ public class StudentService {
         newStudent = studentRepository.save(newStudent);
         return newStudent;
     }
-    public Student findStudent(Long id) {
-        return studentRepository.findById(id).get();
+    public Optional<Student> findStudent(Long id) {
+        return studentRepository.findById(id);
     }
 
     public List<Student> getAllStudents() {
@@ -31,7 +31,7 @@ public class StudentService {
     }
 
     public Student editStudent(long id, StudentDto student) {
-        Student existanceStudent = findStudent(id);
+        Student existanceStudent = studentRepository.findById(id).get();
         existanceStudent.setName(student.getName());
         existanceStudent.setAge(student.getAge());
         studentRepository.save(existanceStudent);
@@ -39,7 +39,7 @@ public class StudentService {
 
     }
     public Student removeStudent(Long id) {
-        Student existanceStudent = findStudent(id);
+        Student existanceStudent = studentRepository.findById(id).get();
         studentRepository.deleteById(id);
         return existanceStudent;
     }
@@ -58,6 +58,17 @@ public class StudentService {
     }
     public List<Student> getByFacultyId(Long facultyId) {
         return studentRepository.findByFacultyId(facultyId);
+    }
+
+    public Integer getCount(){
+        return studentRepository.getCount();
+    }
+
+    public Double getAvgAge(){
+        return studentRepository.getAvgAge();
+    }
+    public List<Student> getLastFiveStudent(){
+        return studentRepository.getLastFiveStudent();
     }
 
 }

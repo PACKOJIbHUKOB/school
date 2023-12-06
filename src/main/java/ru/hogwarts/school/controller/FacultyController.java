@@ -19,7 +19,7 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
     @GetMapping ("{id}")
-    public Faculty findFaculty (@PathVariable long id) {
+    public Faculty findFaculty (@PathVariable Long id) {
         return facultyService.findFaculty(id);
     }
 
