@@ -2,6 +2,8 @@ package ru.hogwarts.school.service;
 
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,6 +27,7 @@ import java.nio.file.Path;
 
 @Service
 public class AvatarService {
+    Logger logger = LoggerFactory.getLogger(AvatarService.class);
 
     private final AvatarRepository avatarRepository;
     private final StudentRepository studentRepository;
@@ -41,6 +44,7 @@ public class AvatarService {
     }
 
     public ResponseEntity<String> uploadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {
+        logger.info("Был вызван метод uploadAvatar");
         Student student = studentRepository.findById(studentId).get();
         Path filePath = Path.of(new File("").getAbsolutePath() + avatarsDir, student + "." + getExtensions(avatarFile.getOriginalFilename()));
         Files.createDirectories(filePath.getParent());
@@ -64,10 +68,12 @@ public class AvatarService {
     }
 
     private String getExtensions(String fileName) {
+        logger.info("Был вызван метод getExtensions");
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
 
     public void downloadAvatar(Long id, HttpServletResponse response) throws IOException {
+        logger.info("Был вызван метод downloadAvatar");
         Avatar avatar = avatarRepository.findById(id).get();
         Path path = Path.of(avatar.getFilePath());
         try (InputStream is = Files.newInputStream(path);

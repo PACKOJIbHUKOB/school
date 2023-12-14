@@ -1,5 +1,7 @@
 package ru.hogwarts.school.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.dto.StudentDto;
 import ru.hogwarts.school.model.Faculty;
@@ -13,24 +15,30 @@ import static java.util.stream.Collectors.toList;
 public class StudentService {
   private final StudentRepository studentRepository;
 
+    Logger logger = LoggerFactory.getLogger(StudentService.class);
+
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
     public Student createNewStudent(String name, Integer age) {
+        logger.info("Был вызван метод createNewStudent");
         Student newStudent = new Student(name, age);
         newStudent = studentRepository.save(newStudent);
         return newStudent;
     }
     public Optional<Student> findStudent(Long id) {
+        logger.info("Был вызван метод findStudent");
         return studentRepository.findById(id);
     }
 
     public List<Student> getAllStudents() {
+        logger.info("Был вызван метод getAllStudents");
         return studentRepository.findAll();
     }
 
     public Student editStudent(long id, StudentDto student) {
+        logger.info("Был вызван метод editStudent");
         Student existanceStudent = studentRepository.findById(id).get();
         existanceStudent.setName(student.getName());
         existanceStudent.setAge(student.getAge());
@@ -39,35 +47,43 @@ public class StudentService {
 
     }
     public Student removeStudent(Long id) {
+        logger.info("Был вызван метод removeStudent");
         Student existanceStudent = studentRepository.findById(id).get();
         studentRepository.deleteById(id);
         return existanceStudent;
     }
 
     public List<Student> findStudentByAge(int age) {
-        return getAllStudents()
+        logger.info("Был вызван метод findStudentByAge");
+        return studentRepository.findAll()
                 .stream()
                 .filter (e->e.getAge() == age)
                 .collect(toList());
     }
     public Collection<Student> findAllByAgeBetween(Integer min, Integer max){
+        logger.info("Был вызван метод findAllByAgeBetween");
         return studentRepository.findAllByAgeBetween(min, max);
     }
     public Faculty getFacultyByStudentId(Long id) {
+        logger.info("Был вызван метод getFacultyByStudentId");
         return studentRepository.findById(id).get().getFaculty();
     }
     public List<Student> getByFacultyId(Long facultyId) {
+        logger.info("Был вызван метод getByFacultyId");
         return studentRepository.findByFacultyId(facultyId);
     }
 
     public Integer getCount(){
+        logger.info("Был вызван метод getCount");
         return studentRepository.getCount();
     }
 
     public Double getAvgAge(){
+        logger.info("Был вызван метод getAvgAge");
         return studentRepository.getAvgAge();
     }
     public List<Student> getLastFiveStudent(){
+        logger.info("Был вызван метод getLastFiveStudent");
         return studentRepository.getLastFiveStudent();
     }
 
