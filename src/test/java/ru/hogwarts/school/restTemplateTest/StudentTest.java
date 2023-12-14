@@ -7,11 +7,9 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import ru.hogwarts.school.controller.StudentController;
 import ru.hogwarts.school.model.Student;
 
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class StudentTest {
     @LocalServerPort

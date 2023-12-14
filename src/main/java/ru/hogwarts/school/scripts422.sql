@@ -7,7 +7,7 @@ CREATE TABLE car(
 
 Create TABLE driver(
         id int primary key,
-        name text,
+        namee text,
         age int,
         have_license bool,
         car_id int,
