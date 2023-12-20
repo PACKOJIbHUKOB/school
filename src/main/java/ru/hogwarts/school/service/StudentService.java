@@ -9,6 +9,8 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositiries.StudentRepository;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
 import static java.util.stream.Collectors.toList;
 
 @Service
@@ -60,6 +62,16 @@ public class StudentService {
                 .filter (e->e.getAge() == age)
                 .collect(toList());
     }
+    public List<String> getAllStudentsStartWitchH(){
+        logger.info("Был вызван метод getAllStudentsStartWitchH");
+        String startsimbol = "H";
+        return studentRepository.findAll()
+                .stream()
+                .map(student -> student.getName().toUpperCase())
+                .filter(name->name.startsWith(startsimbol.toUpperCase()))
+                .sorted()
+                .collect(toList());
+    }
     public Collection<Student> findAllByAgeBetween(Integer min, Integer max){
         logger.info("Был вызван метод findAllByAgeBetween");
         return studentRepository.findAllByAgeBetween(min, max);
@@ -81,6 +93,14 @@ public class StudentService {
     public Double getAvgAge(){
         logger.info("Был вызван метод getAvgAge");
         return studentRepository.getAvgAge();
+    }
+    public Double getAvgAgeToStream(){
+        logger.info("Был вызван метод getAvgAgeToStream");
+        return studentRepository.findAll()
+                .stream()
+                .mapToDouble(student->(double) student.getAge())
+                .average()
+                .orElse(0);
     }
     public List<Student> getLastFiveStudent(){
         logger.info("Был вызван метод getLastFiveStudent");

@@ -62,8 +62,18 @@ public class StudentController {
         return studentService.getAvgAge();
     }
 
+    @GetMapping("/start-name-H")
+    public List<String> getAllStudentsStartWitchH(){
+        return studentService.getAllStudentsStartWitchH();
+    }
+
     @GetMapping("/last-five-student")
     public List<Student> getLastFiveStudent() {
         return studentService.getLastFiveStudent();
+    }
+
+    @GetMapping("/avg-age-sream")
+    public Double getAvgAgeToStream(){
+        return studentService.getAvgAgeToStream();
     }
 }
