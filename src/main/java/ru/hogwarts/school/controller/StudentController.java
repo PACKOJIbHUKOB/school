@@ -76,4 +76,13 @@ public class StudentController {
     public Double getAvgAgeToStream(){
         return studentService.getAvgAgeToStream();
     }
+
+    @GetMapping("/print-parallel")
+    public void findAllStudentsParallel(){
+        studentService.findAllStudentsParallel();
+    }
+    @GetMapping("/print-synchronized")
+    public void findAllSynchronized(){
+        studentService.findAllSynchronized();
+    }
 }

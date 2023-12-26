@@ -107,4 +107,52 @@ public class StudentService {
         return studentRepository.getLastFiveStudent();
     }
 
+    public void findAllStudentsParallel(){
+        List<Student> students = studentRepository.findAll();
+        printStudent(students.get(0));
+        printStudent(students.get(1));
+        Thread tread1 =new Thread(()->{
+
+            printStudent(students.get(2));
+            printStudent(students.get(3));
+        });tread1.start();
+        Thread tread2 =new Thread(()->{
+
+            printStudent(students.get(4));
+            printStudent(students.get(5));
+        });tread2.start();
+        Thread tread3 =new Thread(()->{
+
+        printStudent(students.get(6));
+        });tread3.start();
+
+    }
+
+    public void findAllSynchronized() {
+        List<Student> students = studentRepository.findAll();
+        printStudentSync(students.get(0));
+        printStudentSync(students.get(1));
+        Thread tread1 =new Thread(()->{
+
+            printStudentSync(students.get(2));
+            printStudentSync(students.get(3));
+        });tread1.start();
+        Thread tread2 =new Thread(()->{
+
+            printStudentSync(students.get(4));
+            printStudentSync(students.get(5));
+        });tread2.start();
+        Thread tread3 =new Thread(()->{
+
+            printStudentSync(students.get(6));
+        });tread3.start();
+
+
+    }
+
+    public void printStudent(Student student) {
+        logger.info(Thread.currentThread()+""+student);
+    }
+    public synchronized void  printStudentSync(Student student) {
+        logger.info(Thread.currentThread()+""+student);}
 }
